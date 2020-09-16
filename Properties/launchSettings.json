@@ -1,7 +1,8 @@
 {
   "profiles": {
     "UnityTestRunnerResultsReporter": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "--resultsPath=/home/username/testsFolder/"
     }
   }
 }

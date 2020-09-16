@@ -119,16 +119,21 @@ namespace UnityTestRunnerResultsReporter
                 if (messageElement != null && messageElement.Count() >= 1)
                 {
                     var message = messageElement.First<XElement>().FirstNode;
-                    testCaseResult.message = message == null ? string.Empty : message.ToString();
+                    testCaseResult.message = message == null ? string.Empty : RemoveCData(message.ToString());
                 }
                 var traceElement = tc.Descendants("stack-trace");
                 if (traceElement != null && traceElement.Count() >= 1)
                 {
                     var trace = traceElement.First<XElement>().FirstNode;
-                    testCaseResult.stackTrace = trace == null ? null : trace.ToString();
+                    testCaseResult.stackTrace = trace == null ? null : RemoveCData(trace.ToString());
                 }
             }
             return testCaseResult;
+        }
+
+        private string RemoveCData(string str)
+        {
+            return str.Replace("<![CDATA[", "").Replace("]]>", "");
         }
 
         private int ConvertToTestState(string value)
